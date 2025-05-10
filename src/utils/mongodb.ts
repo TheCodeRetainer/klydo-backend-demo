@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import { logger } from "./logger";
 
 // MongoDB connection string
@@ -6,7 +6,7 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/klydo";
 
 // MongoDB connection options
-const mongooseOptions = {
+const mongooseOptions: ConnectOptions = {
   autoCreate: true, // Create collections automatically
   autoIndex: true, // Create indexes automatically
   connectTimeoutMS: 30000, // Increase connection timeout to 30 seconds
@@ -33,7 +33,7 @@ export async function connectToMongoDB(): Promise<void> {
       logger.info("MongoDB connection established successfully");
     });
 
-    mongoose.connection.on("error", (err) => {
+    mongoose.connection.on("error", (err: Error) => {
       logger.error("MongoDB connection error:", err);
     });
 

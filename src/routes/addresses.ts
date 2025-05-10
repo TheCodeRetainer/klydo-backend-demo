@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { AddressCollectorService } from "../services/addressCollectorService";
 import { AddressRepository } from "../models/addressRepository";
 import { logger } from "../utils/logger";
@@ -10,7 +10,7 @@ const addressRepo = new AddressRepository();
 /**
  * Get all addresses
  */
-addressRoutes.get("/", async (req, res) => {
+addressRoutes.get("/", async (req: Request, res: Response) => {
   try {
     const addresses = await addressService.getAllAddresses();
     res.json({ addresses });
@@ -23,7 +23,7 @@ addressRoutes.get("/", async (req, res) => {
 /**
  * Manually trigger address collection
  */
-addressRoutes.post("/collect", async (req, res) => {
+addressRoutes.post("/collect", async (req: Request, res: Response) => {
   try {
     const result = await addressService.collectAddresses();
     res.json(result);
@@ -36,7 +36,7 @@ addressRoutes.post("/collect", async (req, res) => {
 /**
  * Test endpoint to list all addresses in the database
  */
-addressRoutes.get("/list", async (req, res) => {
+addressRoutes.get("/list", async (req: Request, res: Response) => {
   try {
     logger.info("Listing all addresses in the database");
     const addresses = await addressRepo.getAllAddresses();

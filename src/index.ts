@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { transactionRoutes } from "./routes/transactions";
 import { addressRoutes } from "./routes/addresses";
@@ -23,24 +23,24 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/addresses", addressRoutes);
 
 // Health check
-app.get("/api/health", (req, res) => {
+app.get("/api/health", (req: Request, res: Response) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // Add test route redirects to maintain backward compatibility
-app.get("/api/index-transactions", (req, res) => {
+app.get("/api/index-transactions", (req: Request, res: Response) => {
   res.redirect("/api/transactions/index");
 });
 
-app.get("/api/list-addresses", (req, res) => {
+app.get("/api/list-addresses", (req: Request, res: Response) => {
   res.redirect("/api/addresses/list");
 });
 
-app.get("/api/list-transactions", (req, res) => {
+app.get("/api/list-transactions", (req: Request, res: Response) => {
   res.redirect("/api/transactions/list");
 });
 
-app.get("/api/list-transactions/:address", (req, res) => {
+app.get("/api/list-transactions/:address", (req: Request, res: Response) => {
   const address = req.params.address;
   res.redirect(`/api/transactions/list/${address}`);
 });
