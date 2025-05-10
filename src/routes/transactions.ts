@@ -1,4 +1,7 @@
-import express, { Request, Response } from "express";
+import express from "express";
+// Define types for Express Request and Response
+type Request = any;
+type Response = any;
 import { TransactionIndexerService } from "../services/transactionIndexerService";
 import { AddressCollectorService } from "../services/addressCollectorService";
 import { TransactionRepository } from "../models/transactionRepository";
@@ -30,7 +33,7 @@ async function collectAndUpdateAddresses() {
  * Get all transactions with optional filtering and pagination
  * Automatically collects addresses from all sources and indexes the latest transactions
  */
-transactionRoutes.get("/", async (req: Request, res: Response) => {
+transactionRoutes.get("/", async (req: any, res: any) => {
   try {
     // Always index transactions for all addresses to get the latest data
     logger.info("Indexing latest transactions for all addresses");
@@ -68,7 +71,7 @@ transactionRoutes.get("/", async (req: Request, res: Response) => {
  * Get transactions for a specific address
  * Automatically collects addresses from all sources and indexes the latest transactions
  */
-transactionRoutes.get("/address/:address", async (req: Request, res: Response) => {
+transactionRoutes.get("/address/:address", async (req: any, res: any) => {
   try {
     const { address } = req.params;
 
@@ -107,7 +110,7 @@ transactionRoutes.get("/address/:address", async (req: Request, res: Response) =
 /**
  * Manually trigger transaction indexing for all addresses
  */
-transactionRoutes.post("/index", async (req: Request, res: Response) => {
+transactionRoutes.post("/index", async (req: any, res: any) => {
   try {
     const result = await transactionService.indexAllAddresses();
     res.json(result);
@@ -120,7 +123,7 @@ transactionRoutes.post("/index", async (req: Request, res: Response) => {
 /**
  * Test endpoint to list all transactions in the database
  */
-transactionRoutes.get("/list", async (req: Request, res: Response) => {
+transactionRoutes.get("/list", async (req: any, res: any) => {
   try {
     logger.info("Listing transactions in the database");
     const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
@@ -144,7 +147,7 @@ transactionRoutes.get("/list", async (req: Request, res: Response) => {
 /**
  * Test endpoint to list transactions for a specific address directly from repository
  */
-transactionRoutes.get("/list/:address", async (req: Request, res: Response) => {
+transactionRoutes.get("/list/:address", async (req: any, res: any) => {
   try {
     const address = req.params.address;
     logger.info(`Listing transactions for address: ${address}`);

@@ -6,7 +6,7 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/klydo";
 
 // MongoDB connection options
-const mongooseOptions: ConnectOptions = {
+const mongooseOptions = {
   autoCreate: true, // Create collections automatically
   autoIndex: true, // Create indexes automatically
   connectTimeoutMS: 30000, // Increase connection timeout to 30 seconds
@@ -16,7 +16,7 @@ const mongooseOptions: ConnectOptions = {
   minPoolSize: 1, // Minimum number of connections in the connection pool
   maxIdleTimeMS: 30000, // Close idle connections after 30 seconds
   retryWrites: true, // Retry write operations if they fail
-};
+} as ConnectOptions;
 
 // Connect to MongoDB
 export async function connectToMongoDB(): Promise<void> {
